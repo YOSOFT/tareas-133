@@ -16,7 +16,9 @@
     <ion-item-sliding *ngFor="let tarea of tareas; let indiceTarea = index">
       <ion-item>{{tarea}} </ion-item>
       <ion-item-options>
-        <button ion-button color ="danger">
+        <button ion-button color ="danger"
+          (click)="archivarTarea(indiceTarea)"
+        >
           <ion-icon  name="trash"></ion-icon>
         </button>
       </ion-item-options>

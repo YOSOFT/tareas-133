@@ -41,4 +41,8 @@ export class HomePage {
 
     // console.log(this.tareas);
   }
+  archivarTarea(indiceTarea){
+    console.log(indiceTarea);
+    this.servicioTareas.archivarTarea(indiceTarea);
+  }
 }
