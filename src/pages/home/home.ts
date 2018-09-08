@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, reorderArray, ToastController} from 'ionic-angular';
 import { TareaProvider } from '../../providers/tarea/tarea';
 
 @Component({
@@ -12,7 +12,8 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     private alerta: AlertController,
-    private servicioTareas: TareaProvider
+    private servicioTareas: TareaProvider,
+    private toast: ToastController
   ) {
     this.tareas = servicioTareas.obtenerTareas();
   }
@@ -33,6 +34,11 @@ export class HomePage {
             // console.log(datos);
             // this.tareas.push(datos.textoTarea);
             this.servicioTareas.agregarTarea(datos.textoTarea);
+            let toast = this.toast.create({
+              message: "Tarea agregada exitosamente",
+              duration: 2000
+            });
+            toast.present();
           }
         }
       ]
@@ -50,17 +56,25 @@ export class HomePage {
       title: "Editar tarea",
       inputs: [ {
         type: "text",
-        name: "textoEditarTarea"
+        name: "textoEditarTarea",
+        value: this.tareas[indiceTarea]
       }],
       buttons: [
         {
           text: "Cancelar"
         },
         {
-          text: "Guardar"
+          text: "Guardar",
+          handler: (datos) => {
+            this.servicioTareas.editarTarea(indiceTarea, datos.textoEditarTarea );
+          }
         }
       ]
     });
     alert.present();
+  }
+  ordenarLista(evento){
+    console.log(evento);
+    reorderArray(this.tareas, evento);
   }
 }

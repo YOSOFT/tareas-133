@@ -23,8 +23,8 @@ export class TareaProvider {
     this.tareas.push(tarea);
   }
 
-  editarTarea(){
-
+  editarTarea(indiceTarea, texto){
+    this.tareas[indiceTarea] = texto;
   }
 
   obtenerTareasArchivadas(){
